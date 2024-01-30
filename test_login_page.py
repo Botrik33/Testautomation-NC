@@ -37,4 +37,4 @@ class TestPositiveScenarios:
 
         # Verify button Log out is displayed on the new page
         log_out_button_locator = driver.find_element(By.LINK_TEXT, "Log out")
-        assert log_out_button_locator.is_displayed()
+        assert log_out_button_locator.is_displayed() == True

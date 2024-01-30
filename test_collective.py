@@ -51,20 +51,10 @@ class TestNextCloudConversation:
             EC.element_to_be_clickable((By.XPATH, "//span[@class='button-vue__text' and text()='Create']")))
         add_user_locator.click()
 
-        selenium_collective_locator = wait.until(
-            EC.presence_of_element_located((By.XPATH, "//div[contains(text(), 'Selenium Collective')]")))
-        assert selenium_collective_locator.is_displayed() == True
-        ActionChains(driver).move_to_element(selenium_collective_locator).perform()
-
         kebab_menu_locator = wait.until(
-            EC.visibility_of_element_located((By.XPATH, "(//span[@class='button-vue_wrapper'])[1]")))
+            EC.element_to_be_clickable(
+                (By.CSS_SELECTOR,
+                 "li.app-navigation-entry__wrapper .app-navigation-entry__actions .action-item--tertiary button[aria-label='Actions']")))
         kebab_menu_locator.click()
-        assert kebab_menu_locator.is_displayed() == True
 
-        '''settings_button_locator = wait.until(EC.element_to_be_clickable(
-            (By.XPATH, "//ul[@id='menu-pjfpq']")))'''
-
-
-
-# "//ul[@id='menu-pjfpq']/div/li[9]/button[@role='menuitem']
-# /div/li[9]/button[@role='menuitem']
+# .v-popper.v-popper--shown.v-popper--theme-dropdown > .action-item__menutoggle.button-vue.button-vue--icon-only.button-vue--vue-tertiary span[role='img'] > .material-design-icon__svg > path

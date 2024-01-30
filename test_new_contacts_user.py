@@ -40,3 +40,4 @@ class TestNewContactsUser:
 
         assert save_user_element_locator.is_displayed() == True
         save_user_element_locator.click()
+        time.sleep(10)

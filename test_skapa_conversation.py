@@ -25,8 +25,8 @@ class TestNextCloudConversation:
         talk_app_locator = wait.until(EC.presence_of_element_located((By.CSS_SELECTOR, "li[data-app-id='spreed']")))
         talk_app_locator.click()
 
-        make_conversation_button_locator = wait.until(EC.presence_of_element_located((By.CSS_SELECTOR,
-                                                                                      "path[d='M18 14H20V17H23V19H20V22H18V19H15V17H18V14M12 3C17.5 3 22 6.58 22 11C22 11.58 21.92 12.14 21.78 12.68C20.95 12.25 20 12 19 12C15.69 12 13 14.69 13 18L13.08 18.95L12 19C10.76 19 9.57 18.82 8.47 18.5C5.55 21 2 21 2 21C4.33 18.67 4.7 17.1 4.75 16.5C3.05 15.07 2 13.14 2 11C2 6.58 6.5 3 12 3Z']")))
+        make_conversation_button_locator = wait.until(EC.element_to_be_clickable((By.CSS_SELECTOR,".action-item.action-item--tertiary.actions")))
+
         make_conversation_button_locator.click()
 
         create_conversation_locator = wait.until(EC.element_to_be_clickable(
@@ -43,9 +43,11 @@ class TestNextCloudConversation:
                                                                               "//span[@class='button-vue__text' and text()='Add participants']")))
         add_participants_locator.click()
 
+
         add_participants_locator = wait.until(
             EC.presence_of_element_located((By.XPATH, "//input[@placeholder='Search participants']")))
         driver.execute_script("arguments[0].value='patryk';", add_participants_locator)
+
 
         input_value = add_participants_locator.get_attribute('value')
         assert input_value == "patryk"
@@ -76,3 +78,4 @@ class TestNextCloudConversation:
             EC.element_to_be_clickable((By.XPATH, "//button[@class='primary' and text()='Yes']")))
         yes_button_locator.click()
         assert EC.invisibility_of_element_located(new_conversation_locator)
+
