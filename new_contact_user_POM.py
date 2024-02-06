@@ -6,6 +6,7 @@ from selenium.webdriver.support import expected_conditions as EC
 
 class NewContactUser:
     __url = "https://itsl.demo.hubs.se/apps/dashboard/"
+    __direct_login_button = (By.XPATH, "//div[@class='login-option'][1]")
     __username_field = (By.NAME, "user")
     __password_field = (By.NAME, "password")
     __login_button = (By.XPATH, "//button[@type='submit']")
@@ -14,13 +15,14 @@ class NewContactUser:
     __name_input = (By.XPATH, "//input[@id='contact-fullname']")
     __save_user_element = (By.CSS_SELECTOR, ".contact-header__actions .button-vue--vue-secondary .button-vue__icon")
 
-    def __init__(self, driver: WebDriver):
-        self._driver = driver
+    def __init__(self, driver_nc):
+        self._driver = driver_nc
 
     def open(self):
         self._driver.get(self.__url)
 
     def execute_login(self, username: str, password: str):
+        self._driver.find_element(*self.__direct_login_button).click()
         self._driver.find_element(*self.__username_field).send_keys(username)
         self._driver.find_element(*self.__password_field).send_keys(password)
         self._driver.find_element(*self.__login_button).click()

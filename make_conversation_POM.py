@@ -6,6 +6,7 @@ from selenium.webdriver.support import expected_conditions as EC
 
 class MakeConversation:
     __url = "https://itsl.demo.hubs.se/apps/dashboard/"
+    __direct_login_button = (By.XPATH, "//div[@class='login-option'][1]")
     __username_field = (By.NAME, "user")
     __password_field = (By.NAME, "password")
     __login_button = (By.XPATH, "//button[@type='submit']")
@@ -22,26 +23,26 @@ class MakeConversation:
     __delete_conversation = (By.XPATH, "//span[@class='action-button__text' and contains(text(), 'Delete conversation')]")
     __yes_button = (By.XPATH, "//span[@class='button-vue__text' and text()='Yes']")
 
-    def __init__(self, driver: WebDriver):
-        self._driver = driver
+    def __init__(self, driver_nc):
+        self._driver = driver_nc
 
     def open(self):
         self._driver.get(self.__url)
 
     def execute_login(self, username: str, password: str):
+        self._driver.find_element(*self.__direct_login_button).click()
         self._driver.find_element(*self.__username_field).send_keys(username)
         self._driver.find_element(*self.__password_field).send_keys(password)
         self._driver.find_element(*self.__login_button).click()
 
     def execute_test(self, selenium_conversation: str):
-
+        wait = WebDriverWait(self._driver, 10)
         self._driver.find_element(*self.__talk_app).click()
         self._driver.find_element(*self.__make_conversation_button).click()
         self._driver.find_element(*self.__create_conversation).click()
         self._driver.find_element(*self.__conversation_name).send_keys(selenium_conversation)
         self._driver.find_element(*self.__add_participants).click()
-        search_participants_locator = WebDriverWait(self._driver, 10).until(
-            EC.presence_of_element_located(self.__search_participants))
+        search_participants_locator = wait.until(EC.presence_of_element_located(self.__search_participants))
         self._driver.execute_script("arguments[0].value='patryk';", search_participants_locator)
         self._driver.find_element(*self.__add_user_to_conversation).click()
         self._driver.find_element(*self.__create_conversation_button).click()
