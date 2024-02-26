@@ -25,7 +25,8 @@ class TestNextCloudConversation:
         talk_app_locator = wait.until(EC.presence_of_element_located((By.CSS_SELECTOR, "li[data-app-id='spreed']")))
         talk_app_locator.click()
 
-        make_conversation_button_locator = wait.until(EC.element_to_be_clickable((By.CSS_SELECTOR,".action-item.action-item--tertiary.actions")))
+        make_conversation_button_locator = wait.until(
+            EC.element_to_be_clickable((By.CSS_SELECTOR, ".action-item.action-item--tertiary.actions")))
 
         make_conversation_button_locator.click()
 
@@ -43,11 +44,9 @@ class TestNextCloudConversation:
                                                                               "//span[@class='button-vue__text' and text()='Add participants']")))
         add_participants_locator.click()
 
-
         add_participants_locator = wait.until(
             EC.presence_of_element_located((By.XPATH, "//input[@placeholder='Search participants']")))
         driver.execute_script("arguments[0].value='patryk';", add_participants_locator)
-
 
         input_value = add_participants_locator.get_attribute('value')
         assert input_value == "patryk"
@@ -78,4 +77,3 @@ class TestNextCloudConversation:
             EC.element_to_be_clickable((By.XPATH, "//button[@class='primary' and text()='Yes']")))
         yes_button_locator.click()
         assert EC.invisibility_of_element_located(new_conversation_locator)
-
